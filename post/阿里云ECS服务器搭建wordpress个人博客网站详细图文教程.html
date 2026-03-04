@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>阿里云ECS服务器搭建wordpress个人博客网站【详细图文教程】 - MK 博客</title>
     <style>
+        /* ===== 全局重置 ===== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* ===== 页面基础样式 ===== */
         body { 
             font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
             background: #f5f7fa;
@@ -13,19 +16,9 @@
             color: #333;
             line-height: 1.8;
         }
-            <header>
-        <div class="logo"><span>💎</span> MK</div>
-        <div class="banner-title">
-            <h1>{title}</h1>
-            <p>{date} · {category}</p>
-        </div>
-        <nav>
-            <a href="../index.html">首页</a>
-            <a href="../archive.html">归档</a>
-            <a href="../about.html">关于</a>
-        </nav>
-    </header>
-                header {
+        
+        /* ===== 顶部导航栏 ===== */
+        header {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             padding: 12px 40px;
             height: auto;
@@ -37,8 +30,12 @@
             z-index: 100;
             flex-wrap: wrap;
         }
+        
+        /* Logo */
         .logo { font-size: 20px; font-weight: 600; color: #fff; }
         .logo span { color: #00d4ff; text-shadow: 0 0 10px rgba(0,212,255,0.5); }
+        
+        /* 标题区域 - 横铺100% */
         .banner-title {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             color: #fff;
@@ -50,72 +47,41 @@
         }
         .banner-title h1 { font-size: 24px; font-weight: 400; margin-bottom: 4px; color: #fff; }
         .banner-title p { font-size: 13px; color: rgba(255,255,255,0.8); }
+        
+        /* 导航链接 */
         nav a { color: rgba(255,255,255,0.9); text-decoration: none; margin-left: 32px; font-size: 14px; }
         nav a:hover { color: #fff; }
-        .logo span { color: #0070f3; }
-        .banner-title {
-            background: #fef5e7;
-            color: #f39c12;
-            padding: 20px 40px;
-            text-align: center;
-            border-radius: 8px;
-            flex: 1;
-            margin: 0 40px;
-        }
-        .banner-title h1 { font-size: 24px; font-weight: 300; margin-bottom: 4px; }
-        .banner-title p { font-size: 13px; opacity: 0.9; }
-        nav a { color: #5a6a7a; text-decoration: none; margin-left: 32px; font-size: 14px; }
-        nav a:hover { color: #0070f3; }
+        
+        /* ===== 文章内容区 ===== */
         .container { max-width: 760px; margin: 0 auto; padding: 48px 24px; }
-        .post-    <header>
-        <div class="logo"><span>💎</span> MK</div>
-        <div class="banner-title">
-            <h1>{title}</h1>
-            <p>{date} · {category}</p>
-        </div>
-        <nav>
-            <a href="../index.html">首页</a>
-            <a href="../archive.html">归档</a>
-            <a href="../about.html">关于</a>
-        </nav>
-    </header>
-        .post-header h1 { font-size: 26px; font-weight: 400; color: #2c3e50; margin-bottom: 12px; }
-        .post-header .meta { color: #f39c12; font-size: 13px; }
-        .post-content {
-            background: #fff;
-            border-radius: 8px;
-            padding: 40px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-            border: 1px solid #e1e4e8;
-        }
-        .post-content h2 { color: #2c3e50; margin: 28px 0 14px; font-size: 18px; font-weight: 500; }
-        .post-content p { margin-bottom: 14px; color: #3d4f5f; }
+        
+        /* 文章头部 */
+        .post-header { margin-bottom: 32px; }
+        .post-header h1 { font-size: 28px; font-weight: 400; color: #2c3e50; margin-bottom: 12px; }
+        .post-header .meta { color: #8899a6; font-size: 13px; }
+        
+        /* 文章正文 */
+        .post-content { background: #fff; border-radius: 8px; padding: 40px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); border: 1px solid #e1e4e8; }
+        .post-content h2 { color: #2c3e50; margin: 32px 0 16px; font-size: 20px; font-weight: 500; }
+        .post-content p { margin-bottom: 16px; color: #3d4f5f; }
+        
+        /* 返回链接 */
         .back-link { display: inline-block; margin-top: 32px; color: #0070f3; text-decoration: none; font-size: 14px; }
-        footer { text-align: center; padding: 32px; color: #f39c12; font-size: 13px; border-top: 1px solid #e1e4e8; background: #fff; }
+        .back-link:hover { text-decoration: underline; }
+        
+        /* ===== 页脚 ===== */
+        footer { text-align: center; padding: 32px; color: #8899a6; font-size: 13px; border-top: 1px solid #e1e4e8; background: #fff; }
     </style>
 </head>
 <body>
     <header>
         <div class="logo"><span>💎</span> MK</div>
-        <div class="banner-title">
-            <h1>MK 博客</h1>
-            <p>查看文章</p>
-        </div>
-        <nav>
-            <a href="../index.html">首页</a>
-            <a href="../archive.html">归档</a>
-            <a href="../about.html">关于</a>
-        </nav>
+        <div class="banner-title"><h1>阿里云ECS服务器搭建wordpress个人博客网站【详细图文教程】</h1><p>2019-11-19 · 阿里云</p></div>
+        <nav><a href="../index.html">首页</a><a href="../archive.html">归档</a><a href="../about.html">关于</a></nav>
     </header>
-    
     <div class="container">
-        <div class="post-header">
-            <h1>阿里云ECS服务器搭建wordpress个人博客网站【详细图文教程】</h1>
-            <div class="meta">2019-11-19 · 阿里云</div>
-        </div>
-        <div class="post-content">
-            
-        </div>
+        <div class="post-header"><h1>阿里云ECS服务器搭建wordpress个人博客网站【详细图文教程】</h1><div class="meta">2019-11-19 · 阿里云</div></div>
+        <div class="post-content"></div>
         <a href="../index.html" class="back-link">← 返回首页</a>
     </div>
     <footer><p>© 2026 MK</p></footer>

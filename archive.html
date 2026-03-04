@@ -5,37 +5,221 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>归档 - MK 博客</title>
     <style>
+        /* ===== 全局重置 ===== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: "Segoe UI", "Microsoft YaHei", sans-serif; background: #f5f7fa; min-height: 100vh; color: #333; }
-        header { background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.06); padding: 12px 40px; height: auto; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; flex-wrap: wrap; }
+        
+        /* ===== 页面基础样式 ===== */
+        body { 
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background: #f5f7fa;
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        /* ===== 顶部导航栏 ===== */
+        header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 12px 40px;
+            height: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            flex-wrap: wrap;
+        }
+        
+        /* Logo */
         .logo { font-size: 20px; font-weight: 600; color: #fff; }
-        .logo span { color: #00d4ff; }
-        .banner-title { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); color: #fff; padding: 16px 40px; text-align: center; border-radius: 8px; flex: 1; margin: 0 40px; }
-        .banner-title h1 { font-size: 24px; font-weight: 300; margin-bottom: 4px; }
-        .banner-title p { font-size: 13px; opacity: 0.9; }
-        nav a { color: #5a6a7a; text-decoration: none; margin-left: 32px; font-size: 14px; }
-        nav a:hover { color: #00d4ff; }
-        .container { max-width: 800px; margin: 0 auto; padding: 40px 24px; }
-        h1 { font-size: 24px; font-weight: 400; color: #fff; margin-bottom: 32px; padding-bottom: 16px; border-bottom: 1px solid #e1e4e8; }
-        .post-list { list-style: none; background: #fff; border-radius: 8px; border: 1px solid #e1e4e8; }
-        .post-list li { padding: 16px 20px; border-bottom: 1px solid #e1e4e8; }
+        .logo span { 
+            color: #00d4ff;
+            text-shadow: 0 0 10px rgba(0,212,255,0.5);
+        }
+        
+        /* 标题区域 - 横铺100% */
+        .banner-title {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #fff;
+            padding: 16px 40px;
+            text-align: center;
+            flex: 1;
+            margin: 0;
+            width: 100%;
+        }
+        .banner-title h1 { font-size: 24px; font-weight: 400; margin-bottom: 4px; color: #fff; }
+        .banner-title p { font-size: 13px; color: rgba(255,255,255,0.8); }
+        
+        /* 导航链接 */
+        nav a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            margin-left: 32px;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+        nav a:hover { color: #fff; }
+        
+        /* ===== 主内容区 ===== */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+        
+        /* 页面标题 */
+        h1 {
+            font-size: 24px;
+            font-weight: 400;
+            color: #2c3e50;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e1e4e8;
+        }
+        
+        /* 文章列表 */
+        .post-list {
+            list-style: none;
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid #e1e4e8;
+        }
+        .post-list li {
+            padding: 16px 20px;
+            border-bottom: 1px solid #e1e4e8;
+        }
         .post-list li:last-child { border-bottom: none; }
-        .post-list a { color: #3d4f5f; text-decoration: none; font-size: 14px; display: block; }
-        .post-list a:hover { color: #00d4ff; }
-        .post-list .date { color: #8899a6; margin-right: 16px; font-size: 13px; }
-        footer { text-align: center; padding: 32px; color: #8899a6; font-size: 13px; border-top: 1px solid #e1e4e8; background: #fff; }
+        .post-list a {
+            color: #3d4f5f;
+            text-decoration: none;
+            font-size: 14px;
+            display: block;
+        }
+        .post-list a:hover { color: #0070f3; }
+        .post-list .date {
+            color: #8899a6;
+            margin-right: 16px;
+            font-size: 13px;
+        }
+        
+        /* ===== 页脚 ===== */
+        footer {
+            text-align: center;
+            padding: 32px;
+            color: #8899a6;
+            font-size: 13px;
+            border-top: 1px solid #e1e4e8;
+            background: #fff;
+        }
     </style>
 </head>
 <body>
+    <!-- 顶部导航 -->
     <header>
         <div class="logo"><span>💎</span> MK</div>
-        <div class="banner-title"><h1>MK 博客</h1><p>记录学习、技术、生活的点点滴滴</p></div>
-        <nav><a href="index.html">首页</a><a href="archive.html">归档</a><a href="about.html">关于</a></nav>
+        <div class="banner-title">
+            <h1>MK 博客</h1>
+            <p>记录学习、技术、生活的点点滴滴</p>
+        </div>
+        <nav>
+            <a href="index.html">首页</a>
+            <a href="archive.html">归档</a>
+            <a href="about.html">关于</a>
+        </nav>
     </header>
+    
+    <!-- 主内容区 -->
     <div class="container">
         <h1>文章归档 (82 篇)</h1>
-        <ul class="post-list"><li><span class="date">2026-03-04</span><a href="post/hello-world.html">hello-world</a></li><li><span class="date">2026-03-03</span><a href="post/docker-guide.html">docker-guide</a></li><li><span class="date">2026-03-01</span><a href="post/ai-thinking.html">ai-thinking</a></li><li><span class="date">2020-05-21</span><a href="post/Your-current-security-settings-do-not-allow-this-f.html">Your-current-security-settings-do-not-allow-this-f</a></li><li><span class="date">2020-04-26</span><a href="post/照片自动文件夹整理VBA.html">照片自动文件夹整理VBA</a></li><li><span class="date">2020-04-23</span><a href="post/AWS-EC2.html">AWS-EC2</a></li><li><span class="date">2020-04-20</span><a href="post/CPI参照例ー设定返回时的错误信息.html">CPI参照例ー设定返回时的错误信息</a></li><li><span class="date">2020-04-11</span><a href="post/想用FRP内网穿透NAS的看这里_1.html">想用FRP内网穿透NAS的看这里_1</a></li><li><span class="date">2020-04-11</span><a href="post/想用FRP内容穿透nas-2阿里云域名解析frp.html">想用FRP内容穿透nas-2阿里云域名解析frp</a></li><li><span class="date">2020-04-11</span><a href="post/另一种选择用nps来进行nas内网穿透.html">另一种选择用nps来进行nas内网穿透</a></li><li><span class="date">2020-04-10</span><a href="post/CPI-deploy发布失败的原因.html">CPI-deploy发布失败的原因</a></li><li><span class="date">2020-04-08</span><a href="post/好用的在线工具总结.html">好用的在线工具总结</a></li><li><span class="date">2020-04-03</span><a href="post/POSTMAN-调用CPI-出现403问题的解决办法.html">POSTMAN-调用CPI-出现403问题的解决办法</a></li><li><span class="date">2020-04-01</span><a href="post/Wordpress-备注.html">Wordpress-备注</a></li><li><span class="date">2020-04-01</span><a href="post/SAP-Cloud-Platform-上CPI的初始化工作Insufficient-scope-fo.html">SAP-Cloud-Platform-上CPI的初始化工作Insufficient-scope-fo</a></li><li><span class="date">2020-04-01</span><a href="post/IIS自带的FTP如何设置Passive-Mode端口范围呢.html">IIS自带的FTP如何设置Passive-Mode端口范围呢</a></li><li><span class="date">2020-04-01</span><a href="post/Cloud-Connector-登录地址和用户.html">Cloud-Connector-登录地址和用户</a></li><li><span class="date">2020-03-20</span><a href="post/SAP中的简写.html">SAP中的简写</a></li><li><span class="date">2020-03-20</span><a href="post/SAP中的一些简称及简要介绍.html">SAP中的一些简称及简要介绍</a></li><li><span class="date">2020-03-04</span><a href="post/SAP-CPI-发布后没有端点网站There-are-no-endpoints-configured.html">SAP-CPI-发布后没有端点网站There-are-no-endpoints-configured</a></li><li><span class="date">2020-02-27</span><a href="post/以吃汉堡为例将On-PremiseIaaSPaaSSaaS作比较.html">以吃汉堡为例将On-PremiseIaaSPaaSSaaS作比较</a></li><li><span class="date">2020-02-12</span><a href="post/2020不平凡一年.html">2020不平凡一年</a></li><li><span class="date">2020-01-17</span><a href="post/Java8新特性-利用流和Lambda表达式对List集合进行处理.html">Java8新特性-利用流和Lambda表达式对List集合进行处理</a></li><li><span class="date">2020-01-16</span><a href="post/图像识别test-case.html">图像识别test-case</a></li><li><span class="date">2020-01-16</span><a href="post/Odata的使用查询filter.html">Odata的使用查询filter</a></li><li><span class="date">2020-01-02</span><a href="post/Amazon-Rekognition-图片学习js调用AWS人脸识别API实现图像识别.html">Amazon-Rekognition-图片学习js调用AWS人脸识别API实现图像识别</a></li><li><span class="date">2019-12-09</span><a href="post/转Eclipse-Checkstyle插件安装.html">转Eclipse-Checkstyle插件安装</a></li><li><span class="date">2019-12-05</span><a href="post/java调用Amazon-Polly-语音播音员.html">java调用Amazon-Polly-语音播音员</a></li><li><span class="date">2019-11-29</span><a href="post/eclipse-语言插件.html">eclipse-语言插件</a></li><li><span class="date">2019-11-27</span><a href="post/用Eclipse创建Maven-JavaWeb项目.html">用Eclipse创建Maven-JavaWeb项目</a></li><li><span class="date">2019-11-21</span><a href="post/官方搭建个人博客.html">官方搭建个人博客</a></li><li><span class="date">2019-11-19</span><a href="post/阿里云ECS服务器搭建wordpress个人博客网站详细图文教程.html">阿里云ECS服务器搭建wordpress个人博客网站详细图文教程</a></li><li><span class="date">2019-11-15</span><a href="post/几种常用的版本控制系统优缺点比较.html">几种常用的版本控制系统优缺点比较</a></li><li><span class="date">2019-11-15</span><a href="post/一张图理解Git分布式版本系统.html">一张图理解Git分布式版本系统</a></li><li><span class="date">2019-11-14</span><a href="post/转如何把SAP-WebIDE里的Web项目同Github仓库连接起来.html">转如何把SAP-WebIDE里的Web项目同Github仓库连接起来</a></li><li><span class="date">2019-11-14</span><a href="post/GitGithub-怎么设置多人合作.html">GitGithub-怎么设置多人合作</a></li><li><span class="date">2019-10-30</span><a href="post/利用PN532读写器实现小米9加密门禁卡功能感谢原创.html">利用PN532读写器实现小米9加密门禁卡功能感谢原创</a></li><li><span class="date">2019-10-30</span><a href="post/SAPUI5-例子坑文档-432-Routing-with-Parameters.html">SAPUI5-例子坑文档-432-Routing-with-Parameters</a></li><li><span class="date">2019-10-15</span><a href="post/AWS-SAA-练习题.html">AWS-SAA-练习题</a></li><li><span class="date">2019-10-11</span><a href="post/SAPUI5-例子坑步骤28使用QUnit进行单元测试.html">SAPUI5-例子坑步骤28使用QUnit进行单元测试</a></li><li><span class="date">2019-10-08</span><a href="post/CSS3-display-block-块元素和行元素的区别.html">CSS3-display-block-块元素和行元素的区别</a></li><li><span class="date">2019-09-24</span><a href="post/svf-マニュアル.html">svf-マニュアル</a></li><li><span class="date">2019-09-20</span><a href="post/Windows-设置自启动计划任务非登录启动.html">Windows-设置自启动计划任务非登录启动</a></li><li><span class="date">2019-09-18</span><a href="post/安全组与网络ACL区别.html">安全组与网络ACL区别</a></li><li><span class="date">2019-09-16</span><a href="post/群晖IPV6下内网穿透访问.html">群晖IPV6下内网穿透访问</a></li><li><span class="date">2019-09-16</span><a href="post/AWS-名词解析.html">AWS-名词解析</a></li><li><span class="date">2019-09-16</span><a href="post/AWS-SA-计算服务-无服务Lambda.html">AWS-SA-计算服务-无服务Lambda</a></li><li><span class="date">2019-09-16</span><a href="post/AWS-SA-计算服务-ECS-Docker.html">AWS-SA-计算服务-ECS-Docker</a></li><li><span class="date">2019-09-16</span><a href="post/AWS-SA-计算服务-ECS.html">AWS-SA-计算服务-ECS</a></li><li><span class="date">2019-09-16</span><a href="post/AWS-SA-计算服务-EC2-置放群组PlacementGroup.html">AWS-SA-计算服务-EC2-置放群组PlacementGroup</a></li><li><span class="date">2019-09-16</span><a href="post/AWS-SA-计算服务-AutoScaling.html">AWS-SA-计算服务-AutoScaling</a></li><li><span class="date">2019-09-16</span><a href="post/AWS-SA-网络服务-VPC终端节点.html">AWS-SA-网络服务-VPC终端节点</a></li><li><span class="date">2019-09-16</span><a href="post/AWS-SA-网络服务-VPC流日志.html">AWS-SA-网络服务-VPC流日志</a></li><li><span class="date">2019-09-16</span><a href="post/AWS-SA-网络服务-VPC对等连接.html">AWS-SA-网络服务-VPC对等连接</a></li><li><span class="date">2019-09-16</span><a href="post/AWS-SA-网络服务-VPC.html">AWS-SA-网络服务-VPC</a></li><li><span class="date">2019-09-16</span><a href="post/AWS-SA-网络服务-NAT实例网关.html">AWS-SA-网络服务-NAT实例网关</a></li><li><span class="date">2019-09-16</span><a href="post/AWS-SA-网络服务-DirectConnect线路.html">AWS-SA-网络服务-DirectConnect线路</a></li><li><span class="date">2019-09-16</span><a href="post/AWS-SA-数据库服务-Redshift.html">AWS-SA-数据库服务-Redshift</a></li><li><span class="date">2019-09-16</span><a href="post/AWS-SA-数据库服务-RDS的备份Multi-AZ高可用ReadReplicas.html">AWS-SA-数据库服务-RDS的备份Multi-AZ高可用ReadReplicas</a></li><li><span class="date">2019-09-16</span><a href="post/AWS-SA-数据库服务-Elasticache.html">AWS-SA-数据库服务-Elasticache</a></li><li><span class="date">2019-09-16</span><a href="post/AWS-SA-数据库服务-DynamoDB.html">AWS-SA-数据库服务-DynamoDB</a></li><li><span class="date">2019-09-16</span><a href="post/AWS-SA-数据库服务-Aurora.html">AWS-SA-数据库服务-Aurora</a></li><li><span class="date">2019-09-16</span><a href="post/AWS-SA-数据库服务.html">AWS-SA-数据库服务</a></li><li><span class="date">2019-09-16</span><a href="post/AWS-SA-存储服务-StorageGateway.html">AWS-SA-存储服务-StorageGateway</a></li><li><span class="date">2019-09-16</span><a href="post/AWS-SA-存储服务-Snowball.html">AWS-SA-存储服务-Snowball</a></li><li><span class="date">2019-09-16</span><a href="post/AWS-SA-存储服务-S3总结.html">AWS-SA-存储服务-S3总结</a></li><li><span class="date">2019-09-16</span><a href="post/AWS-SA-存储服务-S3.html">AWS-SA-存储服务-S3</a></li><li><span class="date">2019-09-16</span><a href="post/AWS-SA-存储服务-EFS.html">AWS-SA-存储服务-EFS</a></li><li><span class="date">2019-09-16</span><a href="post/AWS-SA-存储服务-CloudFrontCDN.html">AWS-SA-存储服务-CloudFrontCDN</a></li><li><span class="date">2019-09-16</span><a href="post/AWS-SA-其他服务-SWF.html">AWS-SA-其他服务-SWF</a></li><li><span class="date">2019-09-16</span><a href="post/AWS-SA-其他服务-SQS.html">AWS-SA-其他服务-SQS</a></li><li><span class="date">2019-09-16</span><a href="post/AWS-SA-其他服务-SNS.html">AWS-SA-其他服务-SNS</a></li><li><span class="date">2019-09-16</span><a href="post/AWS-SA-其他服务-APIGateway.html">AWS-SA-其他服务-APIGateway</a></li><li><span class="date">2019-09-16</span><a href="post/AWS-SA-route53.html">AWS-SA-route53</a></li><li><span class="date">2019-09-16</span><a href="post/AWS---AuroraMysqlRedshift的区别.html">AWS---AuroraMysqlRedshift的区别</a></li><li><span class="date">2019-07-30</span><a href="post/互联网产品的架构评估可用性可靠性可维护性安全性.html">互联网产品的架构评估可用性可靠性可维护性安全性</a></li><li><span class="date">2019-07-30</span><a href="post/UiPath-中文教程和中文视频.html">UiPath-中文教程和中文视频</a></li><li><span class="date">2019-07-22</span><a href="post/虚拟机与Docker有何不同.html">虚拟机与Docker有何不同</a></li><li><span class="date">2019-07-22</span><a href="post/Docker与VM虚拟机的区别以及Docker的特点.html">Docker与VM虚拟机的区别以及Docker的特点</a></li><li><span class="date">2019-07-04</span><a href="post/WCF来传递DataTable的Bug.html">WCF来传递DataTable的Bug</a></li><li><span class="date">2019-07-03</span><a href="post/群晖NAS提示存储空间损毁修复纪实.html">群晖NAS提示存储空间损毁修复纪实</a></li><li><span class="date">2019-06-28</span><a href="post/helloworld.html">helloworld</a></li></ul>
+        <ul class="post-list">
+            <li><span class="date">2026-03-04</span><a href="post/hello-world.html">hello-world</a></li>
+            <li><span class="date">2026-03-03</span><a href="post/docker-guide.html">docker-guide</a></li>
+            <li><span class="date">2026-03-01</span><a href="post/ai-thinking.html">ai-thinking</a></li>
+            <li><span class="date">2020-05-21</span><a href="post/Your-current-security-settings-do-not-allow-this-f.html">Your-current-security-settings-do-not-allow-this-f</a></li>
+            <li><span class="date">2020-04-26</span><a href="post/照片自动文件夹整理VBA.html">照片自动文件夹整理VBA</a></li>
+            <li><span class="date">2020-04-23</span><a href="post/AWS-EC2.html">AWS-EC2</a></li>
+            <li><span class="date">2020-04-20</span><a href="post/CPI参照例ー设定返回时的错误信息.html">CPI参照例ー设定返回时的错误信息</a></li>
+            <li><span class="date">2020-04-11</span><a href="post/想用FRP内网穿透NAS的看这里_1.html">想用FRP内网穿透NAS的看这里_1</a></li>
+            <li><span class="date">2020-04-11</span><a href="post/想用FRP内容穿透nas-2阿里云域名解析frp.html">想用FRP内容穿透nas-2阿里云域名解析frp</a></li>
+            <li><span class="date">2020-04-11</span><a href="post/另一种选择用nps来进行nas内网穿透.html">另一种选择用nps来进行nas内网穿透</a></li>
+            <li><span class="date">2020-04-10</span><a href="post/CPI-deploy发布失败的原因.html">CPI-deploy发布失败的原因</a></li>
+            <li><span class="date">2020-04-08</span><a href="post/好用的在线工具总结.html">好用的在线工具总结</a></li>
+            <li><span class="date">2020-04-03</span><a href="post/POSTMAN-调用CPI-出现403问题的解决办法.html">POSTMAN-调用CPI-出现403问题的解决办法</a></li>
+            <li><span class="date">2020-04-01</span><a href="post/Wordpress-备注.html">Wordpress-备注</a></li>
+            <li><span class="date">2020-04-01</span><a href="post/SAP-Cloud-Platform-上CPI的初始化工作Insufficient-scope-fo.html">SAP-Cloud-Platform-上CPI的初始化工作Insufficient-scope-fo</a></li>
+            <li><span class="date">2020-04-01</span><a href="post/IIS自带的FTP如何设置Passive-Mode端口范围呢.html">IIS自带的FTP如何设置Passive-Mode端口范围呢</a></li>
+            <li><span class="date">2020-04-01</span><a href="post/Cloud-Connector-登录地址和用户.html">Cloud-Connector-登录地址和用户</a></li>
+            <li><span class="date">2020-03-20</span><a href="post/SAP中的简写.html">SAP中的简写</a></li>
+            <li><span class="date">2020-03-20</span><a href="post/SAP中的一些简称及简要介绍.html">SAP中的一些简称及简要介绍</a></li>
+            <li><span class="date">2020-03-04</span><a href="post/SAP-CPI-发布后没有端点网站There-are-no-endpoints-configured.html">SAP-CPI-发布后没有端点网站There-are-no-endpoints-configured</a></li>
+            <li><span class="date">2020-02-27</span><a href="post/以吃汉堡为例将On-PremiseIaaSPaaSSaaS作比较.html">以吃汉堡为例将On-PremiseIaaSPaaSSaaS作比较</a></li>
+            <li><span class="date">2020-02-12</span><a href="post/2020不平凡一年.html">2020不平凡一年</a></li>
+            <li><span class="date">2020-01-17</span><a href="post/Java8新特性-利用流和Lambda表达式对List集合进行处理.html">Java8新特性-利用流和Lambda表达式对List集合进行处理</a></li>
+            <li><span class="date">2020-01-16</span><a href="post/图像识别test-case.html">图像识别test-case</a></li>
+            <li><span class="date">2020-01-16</span><a href="post/Odata的使用查询filter.html">Odata的使用查询filter</a></li>
+            <li><span class="date">2020-01-02</span><a href="post/Amazon-Rekognition-图片学习js调用AWS人脸识别API实现图像识别.html">Amazon-Rekognition-图片学习js调用AWS人脸识别API实现图像识别</a></li>
+            <li><span class="date">2019-12-09</span><a href="post/转Eclipse-Checkstyle插件安装.html">转Eclipse-Checkstyle插件安装</a></li>
+            <li><span class="date">2019-12-05</span><a href="post/java调用Amazon-Polly-语音播音员.html">java调用Amazon-Polly-语音播音员</a></li>
+            <li><span class="date">2019-11-29</span><a href="post/eclipse-语言插件.html">eclipse-语言插件</a></li>
+            <li><span class="date">2019-11-27</span><a href="post/用Eclipse创建Maven-JavaWeb项目.html">用Eclipse创建Maven-JavaWeb项目</a></li>
+            <li><span class="date">2019-11-21</span><a href="post/官方搭建个人博客.html">官方搭建个人博客</a></li>
+            <li><span class="date">2019-11-19</span><a href="post/阿里云ECS服务器搭建wordpress个人博客网站详细图文教程.html">阿里云ECS服务器搭建wordpress个人博客网站详细图文教程</a></li>
+            <li><span class="date">2019-11-15</span><a href="post/几种常用的版本控制系统优缺点比较.html">几种常用的版本控制系统优缺点比较</a></li>
+            <li><span class="date">2019-11-15</span><a href="post/一张图理解Git分布式版本系统.html">一张图理解Git分布式版本系统</a></li>
+            <li><span class="date">2019-11-14</span><a href="post/转如何把SAP-WebIDE里的Web项目同Github仓库连接起来.html">转如何把SAP-WebIDE里的Web项目同Github仓库连接起来</a></li>
+            <li><span class="date">2019-11-14</span><a href="post/GitGithub-怎么设置多人合作.html">GitGithub-怎么设置多人合作</a></li>
+            <li><span class="date">2019-10-30</span><a href="post/利用PN532读写器实现小米9加密门禁卡功能感谢原创.html">利用PN532读写器实现小米9加密门禁卡功能感谢原创</a></li>
+            <li><span class="date">2019-10-30</span><a href="post/SAPUI5-例子坑文档-432-Routing-with-Parameters.html">SAPUI5-例子坑文档-432-Routing-with-Parameters</a></li>
+            <li><span class="date">2019-10-15</span><a href="post/AWS-SAA-练习题.html">AWS-SAA-练习题</a></li>
+            <li><span class="date">2019-10-11</span><a href="post/SAPUI5-例子坑步骤28使用QUnit进行单元测试.html">SAPUI5-例子坑步骤28使用QUnit进行单元测试</a></li>
+            <li><span class="date">2019-10-08</span><a href="post/CSS3-display-block-块元素和行元素的区别.html">CSS3-display-block-块元素和行元素的区别</a></li>
+            <li><span class="date">2019-09-24</span><a href="post/svf-マニュアル.html">svf-マニュアル</a></li>
+            <li><span class="date">2019-09-20</span><a href="post/Windows-设置自启动计划任务非登录启动.html">Windows-设置自启动计划任务非登录启动</a></li>
+            <li><span class="date">2019-09-18</span><a href="post/安全组与网络ACL区别.html">安全组与网络ACL区别</a></li>
+            <li><span class="date">2019-09-16</span><a href="post/群晖IPV6下内网穿透访问.html">群晖IPV6下内网穿透访问</a></li>
+            <li><span class="date">2019-09-16</span><a href="post/AWS-名词解析.html">AWS-名词解析</a></li>
+            <li><span class="date">2019-09-16</span><a href="post/AWS-SA-计算服务-无服务Lambda.html">AWS-SA-计算服务-无服务Lambda</a></li>
+            <li><span class="date">2019-09-16</span><a href="post/AWS-SA-计算服务-ECS-Docker.html">AWS-SA-计算服务-ECS-Docker</a></li>
+            <li><span class="date">2019-09-16</span><a href="post/AWS-SA-计算服务-ECS.html">AWS-SA-计算服务-ECS</a></li>
+            <li><span class="date">2019-09-16</span><a href="post/AWS-SA-计算服务-EC2-置放群组PlacementGroup.html">AWS-SA-计算服务-EC2-置放群组PlacementGroup</a></li>
+            <li><span class="date">2019-09-16</span><a href="post/AWS-SA-计算服务-AutoScaling.html">AWS-SA-计算服务-AutoScaling</a></li>
+            <li><span class="date">2019-09-16</span><a href="post/AWS-SA-网络服务-VPC终端节点.html">AWS-SA-网络服务-VPC终端节点</a></li>
+            <li><span class="date">2019-09-16</span><a href="post/AWS-SA-网络服务-VPC流日志.html">AWS-SA-网络服务-VPC流日志</a></li>
+            <li><span class="date">2019-09-16</span><a href="post/AWS-SA-网络服务-VPC对等连接.html">AWS-SA-网络服务-VPC对等连接</a></li>
+            <li><span class="date">2019-09-16</span><a href="post/AWS-SA-网络服务-VPC.html">AWS-SA-网络服务-VPC</a></li>
+            <li><span class="date">2019-09-16</span><a href="post/AWS-SA-网络服务-NAT实例网关.html">AWS-SA-网络服务-NAT实例网关</a></li>
+            <li><span class="date">2019-09-16</span><a href="post/AWS-SA-网络服务-DirectConnect线路.html">AWS-SA-网络服务-DirectConnect线路</a></li>
+            <li><span class="date">2019-09-16</span><a href="post/AWS-SA-数据库服务-Redshift.html">AWS-SA-数据库服务-Redshift</a></li>
+            <li><span class="date">2019-09-16</span><a href="post/AWS-SA-数据库服务-RDS的备份Multi-AZ高可用ReadReplicas.html">AWS-SA-数据库服务-RDS的备份Multi-AZ高可用ReadReplicas</a></li>
+            <li><span class="date">2019-09-16</span><a href="post/AWS-SA-数据库服务-Elasticache.html">AWS-SA-数据库服务-Elasticache</a></li>
+            <li><span class="date">2019-09-16</span><a href="post/AWS-SA-数据库服务-DynamoDB.html">AWS-SA-数据库服务-DynamoDB</a></li>
+            <li><span class="date">2019-09-16</span><a href="post/AWS-SA-数据库服务-Aurora.html">AWS-SA-数据库服务-Aurora</a></li>
+            <li><span class="date">2019-09-16</span><a href="post/AWS-SA-数据库服务.html">AWS-SA-数据库服务</a></li>
+            <li><span class="date">2019-09-16</span><a href="post/AWS-SA-存储服务-StorageGateway.html">AWS-SA-存储服务-StorageGateway</a></li>
+            <li><span class="date">2019-09-16</span><a href="post/AWS-SA-存储服务-Snowball.html">AWS-SA-存储服务-Snowball</a></li>
+            <li><span class="date">2019-09-16</span><a href="post/AWS-SA-存储服务-S3总结.html">AWS-SA-存储服务-S3总结</a></li>
+            <li><span class="date">2019-09-16</span><a href="post/AWS-SA-存储服务-S3.html">AWS-SA-存储服务-S3</a></li>
+            <li><span class="date">2019-09-16</span><a href="post/AWS-SA-存储服务-EFS.html">AWS-SA-存储服务-EFS</a></li>
+            <li><span class="date">2019-09-16</span><a href="post/AWS-SA-存储服务-CloudFrontCDN.html">AWS-SA-存储服务-CloudFrontCDN</a></li>
+            <li><span class="date">2019-09-16</span><a href="post/AWS-SA-其他服务-SWF.html">AWS-SA-其他服务-SWF</a></li>
+            <li><span class="date">2019-09-16</span><a href="post/AWS-SA-其他服务-SQS.html">AWS-SA-其他服务-SQS</a></li>
+            <li><span class="date">2019-09-16</span><a href="post/AWS-SA-其他服务-SNS.html">AWS-SA-其他服务-SNS</a></li>
+            <li><span class="date">2019-09-16</span><a href="post/AWS-SA-其他服务-APIGateway.html">AWS-SA-其他服务-APIGateway</a></li>
+            <li><span class="date">2019-09-16</span><a href="post/AWS-SA-route53.html">AWS-SA-route53</a></li>
+            <li><span class="date">2019-09-16</span><a href="post/AWS---AuroraMysqlRedshift的区别.html">AWS---AuroraMysqlRedshift的区别</a></li>
+            <li><span class="date">2019-07-30</span><a href="post/互联网产品的架构评估可用性可靠性可维护性安全性.html">互联网产品的架构评估可用性可靠性可维护性安全性</a></li>
+            <li><span class="date">2019-07-30</span><a href="post/UiPath-中文教程和中文视频.html">UiPath-中文教程和中文视频</a></li>
+            <li><span class="date">2019-07-22</span><a href="post/虚拟机与Docker有何不同.html">虚拟机与Docker有何不同</a></li>
+            <li><span class="date">2019-07-22</span><a href="post/Docker与VM虚拟机的区别以及Docker的特点.html">Docker与VM虚拟机的区别以及Docker的特点</a></li>
+            <li><span class="date">2019-07-04</span><a href="post/WCF来传递DataTable的Bug.html">WCF来传递DataTable的Bug</a></li>
+            <li><span class="date">2019-07-03</span><a href="post/群晖NAS提示存储空间损毁修复纪实.html">群晖NAS提示存储空间损毁修复纪实</a></li>
+            <li><span class="date">2019-06-28</span><a href="post/helloworld.html">helloworld</a></li>
+        </ul>
     </div>
-    <footer><p>© 2026 MK</p></footer>
+    
+    <!-- 页脚 -->
+    <footer>
+        <p>© 2026 MK</p>
+    </footer>
 </body>
 </html>

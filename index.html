@@ -5,27 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MK 博客</title>
     <style>
+        /* ===== 全局重置 ===== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* ===== 页面基础样式 ===== */
         body { 
             font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
-            background: #f5f7fa;
+            background: #f5f7fa;  /* 浅灰背景 */
             min-height: 100vh;
             color: #333;
         }
+        
+        /* ===== 顶部导航栏 ===== */
         header {
+            /* 深蓝渐变背景 - 科技梦幻感 */
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             padding: 12px 40px;
             height: auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: sticky;
+            position: sticky;  /* 固定在顶部 */
             top: 0;
             z-index: 100;
             flex-wrap: wrap;
         }
+        
+        /* Logo 样式 */
         .logo { font-size: 20px; font-weight: 600; color: #fff; }
-        .logo span { color: #00d4ff; text-shadow: 0 0 10px rgba(0,212,255,0.5); }
+        .logo span { 
+            color: #00d4ff;  /* 水晶蓝 */
+            text-shadow: 0 0 10px rgba(0,212,255,0.5);  /* 发光效果 */
+        }
+        
+        /* 标题区域 */
         .banner-title {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             color: #fff;
@@ -33,10 +46,12 @@
             text-align: center;
             flex: 1;
             margin: 0;
-            width: 100%;
+            width: 100%;  /* 横铺100% */
         }
         .banner-title h1 { font-size: 24px; font-weight: 400; margin-bottom: 4px; color: #fff; }
         .banner-title p { font-size: 13px; color: rgba(255,255,255,0.8); }
+        
+        /* 导航链接 */
         nav a {
             color: rgba(255,255,255,0.9);
             text-decoration: none;
@@ -46,12 +61,14 @@
         }
         nav a:hover { color: #fff; }
         
+        /* ===== 主内容区域 ===== */
         .container {
             max-width: 900px;
             margin: 0 auto;
             padding: 40px 24px;
         }
         
+        /* ===== 搜索栏 ===== */
         .search-bar {
             background: #fff;
             border-radius: 8px;
@@ -80,6 +97,7 @@
             font-size: 14px;
         }
         
+        /* ===== 区块标题 ===== */
         .section-title {
             font-size: 18px;
             font-weight: 500;
@@ -92,8 +110,10 @@
             align-items: center;
         }
         
+        /* ===== 文章列表 ===== */
         .posts { margin-bottom: 40px; }
         
+        /* 文章卡片 */
         .post-card {
             background: #fff;
             border-radius: 8px;
@@ -105,7 +125,7 @@
             border: 1px solid #e1e4e8;
         }
         .post-card:hover {
-            transform: translateY(-2px);
+            transform: translateY(-2px);  /* 悬浮上移 */
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
         .post-card h3 {
@@ -114,11 +134,13 @@
             color: #2c3e50;
             margin-bottom: 8px;
         }
-        .post-card .meta {
+        . {
             color: #8899a6;
             font-size: 13px;
             margin-bottom: 12px;
         }
+        
+        /* 标签 */
         .tags { margin-top: 12px; }
         .tag {
             display: inline-block;
@@ -130,7 +152,10 @@
             margin-right: 6px;
         }
         
+        /* ===== 侧边栏 ===== */
         .sidebar { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        
+        /* 侧边栏小部件 */
         .widget {
             background: #fff;
             border-radius: 8px;
@@ -145,6 +170,8 @@
             padding-bottom: 10px;
             border-bottom: 1px solid #e1e4e8;
         }
+        
+        /* 分类列表 */
         .category-list a {
             display: block;
             padding: 8px 0;
@@ -157,6 +184,7 @@
         .category-list a:hover { color: #0070f3; }
         .category-list span { float: right; color: #8899a6; }
         
+        /* 标签云 */
         .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
         .tag-cloud .tag {
             background: #e8f0fe;
@@ -165,6 +193,7 @@
         }
         .tag-cloud .tag:hover { background: #0070f3; color: #fff; }
         
+        /* ===== 页脚 ===== */
         footer {
             text-align: center;
             padding: 32px;
@@ -176,12 +205,18 @@
     </style>
 </head>
 <body>
+    <!-- 顶部导航 -->
     <header>
+        <!-- Logo: 水晶 + MK -->
         <div class="logo"><span>💎</span> MK</div>
+        
+        <!-- 博客标题与副标题 -->
         <div class="banner-title">
             <h1>MK 博客</h1>
             <p>记录学习、技术、生活的点点滴滴</p>
         </div>
+        
+        <!-- 导航链接 -->
         <nav>
             <a href="index.html">首页</a>
             <a href="archive.html">归档</a>
@@ -189,18 +224,22 @@
         </nav>
     </header>
     
+    <!-- 主内容区 -->
     <div class="container">
+        <!-- 搜索栏 -->
         <div class="search-bar">
             <input type="text" id="searchInput" placeholder="搜索文章...">
             <button onclick="searchPosts()">搜索</button>
         </div>
         
+        <!-- 最新文章列表 -->
         <div class="posts">
             <div class="section-title">
                 <span>最新文章</span>
                 <a href="archive.html" style="font-size:13px;color:#0070f3;text-decoration:none;">查看全部 →</a>
             </div>
             
+            <!-- 文章卡片 - 点击跳转 -->
             <a href="post/hello-world.html" style="text-decoration:none;color:inherit">
                 <div class="post-card">
                     <h3>第一篇博客：Hello World</h3>
@@ -272,7 +311,9 @@
             </a>
         </div>
         
+        <!-- 侧边栏 -->
         <div class="sidebar">
+            <!-- 分类 -->
             <div class="widget">
                 <h3>📁 分类</h3>
                 <div class="category-list">
@@ -286,6 +327,8 @@
                     <a href="#">未分类 <span>31</span></a>
                 </div>
             </div>
+            
+            <!-- 标签云 -->
             <div class="widget">
                 <h3>🏷 标签</h3>
                 <div class="tag-cloud">
@@ -304,12 +347,15 @@
         </div>
     </div>
     
+    <!-- 页脚 -->
     <footer>
         <p>© 2026 MK · 用心记录每一天</p>
         <p style="margin-top:8px"><a href="admin/login.html" style="color:#8899a6;text-decoration:none;">管理后台</a></p>
     </footer>
     
+    <!-- JavaScript 交互脚本 -->
     <script>
+        // 搜索功能
         function searchPosts() {
             const keyword = document.getElementById('searchInput').value;
             if(keyword) {
@@ -317,6 +363,7 @@
             }
         }
         
+        // 回车键触发搜索
         document.getElementById('searchInput').addEventListener('keypress', function(e) {
             if(e.key === 'Enter') searchPosts();
         });
