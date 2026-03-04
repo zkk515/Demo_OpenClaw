@@ -13,12 +13,22 @@
             color: #333;
             line-height: 1.8;
         }
-        header {
-            background: #fff;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-            padding: 0 40px;
+            <header>
+        <div class="logo"><span>💎</span> MK</div>
+        <div class="banner-title">
+            <h1>{title}</h1>
+            <p>{date} · {category}</p>
+        </div>
+        <nav>
+            <a href="../index.html">首页</a>
+            <a href="../archive.html">归档</a>
+            <a href="../about.html">关于</a>
+        </nav>
+    </header>
+                header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 12px 40px;
             height: auto;
-            min-height: 64px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -27,7 +37,21 @@
             z-index: 100;
             flex-wrap: wrap;
         }
-        .logo { font-size: 20px; font-weight: 600; color: #2c3e50; }
+        .logo { font-size: 20px; font-weight: 600; color: #fff; }
+        .logo span { color: #00d4ff; text-shadow: 0 0 10px rgba(0,212,255,0.5); }
+        .banner-title {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #fff;
+            padding: 16px 40px;
+            text-align: center;
+            flex: 1;
+            margin: 0;
+            width: 100%;
+        }
+        .banner-title h1 { font-size: 24px; font-weight: 400; margin-bottom: 4px; color: #fff; }
+        .banner-title p { font-size: 13px; color: rgba(255,255,255,0.8); }
+        nav a { color: rgba(255,255,255,0.9); text-decoration: none; margin-left: 32px; font-size: 14px; }
+        nav a:hover { color: #fff; }
         .logo span { color: #0070f3; }
         .banner-title {
             background: #fef5e7;
@@ -43,7 +67,18 @@
         nav a { color: #5a6a7a; text-decoration: none; margin-left: 32px; font-size: 14px; }
         nav a:hover { color: #0070f3; }
         .container { max-width: 760px; margin: 0 auto; padding: 48px 24px; }
-        .post-header { text-align: center; margin-bottom: 40px; }
+        .post-    <header>
+        <div class="logo"><span>💎</span> MK</div>
+        <div class="banner-title">
+            <h1>{title}</h1>
+            <p>{date} · {category}</p>
+        </div>
+        <nav>
+            <a href="../index.html">首页</a>
+            <a href="../archive.html">归档</a>
+            <a href="../about.html">关于</a>
+        </nav>
+    </header>
         .post-header h1 { font-size: 26px; font-weight: 400; color: #2c3e50; margin-bottom: 12px; }
         .post-header .meta { color: #f39c12; font-size: 13px; }
         .post-content {
@@ -61,10 +96,10 @@
 </head>
 <body>
     <header>
-        <div class="logo"><span>▣</span> MK</div>
+        <div class="logo"><span>💎</span> MK</div>
         <div class="banner-title">
             <h1>MK 博客</h1>
-            <p>记录学习、技术、生活的点点滴滴</p>
+            <p>查看文章</p>
         </div>
         <nav>
             <a href="../index.html">首页</a>
@@ -72,6 +107,7 @@
             <a href="../about.html">关于</a>
         </nav>
     </header>
+    
     <div class="container">
         <div class="post-header">
             <h1>阿里云ECS服务器搭建wordpress个人博客网站【详细图文教程】</h1>
