@@ -16,16 +16,29 @@
             background: #fff;
             box-shadow: 0 2px 8px rgba(0,0,0,0.06);
             padding: 0 40px;
-            height: 64px;
+            height: auto;
+            min-height: 64px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             position: sticky;
             top: 0;
             z-index: 100;
+            flex-wrap: wrap;
         }
         .logo { font-size: 20px; font-weight: 600; color: #2c3e50; }
         .logo span { color: #0070f3; }
+        .banner-title {
+            background: linear-gradient(135deg, #0070f3 0%, #00c4f3 100%);
+            color: #fff;
+            padding: 20px 40px;
+            text-align: center;
+            border-radius: 8px;
+            flex: 1;
+            margin: 0 40px;
+        }
+        .banner-title h1 { font-size: 24px; font-weight: 300; margin-bottom: 4px; }
+        .banner-title p { font-size: 13px; opacity: 0.9; }
         nav a {
             color: #5a6a7a;
             text-decoration: none;
@@ -33,16 +46,7 @@
             font-size: 14px;
             transition: color 0.2s;
         }
-        nav a:hover { color: #0070f3        .banner; }
-        
- {
-            background: linear-gradient(135deg, #0070f3 0%, #00c4f3 100%);
-            padding: 60px 40px;
-            text-align: center;
-            color: #fff;
-        }
-        .banner h1 { font-size: 32px; font-weight: 300; margin-bottom: 12px; }
-        .banner p { font-size: 16px; opacity: 0.9; }
+        nav a:hover { color: #0070f3; }
         
         .container {
             max-width: 900px;
@@ -181,17 +185,16 @@
 <body>
     <header>
         <div class="logo"><span>▣</span> MK</div>
+        <div class="banner-title">
+            <h1>MK 博客</h1>
+            <p>记录学习、技术、生活的点点滴滴</p>
+        </div>
         <nav>
             <a href="index.html">首页</a>
             <a href="archive.html">归档</a>
             <a href="about.html">关于</a>
         </nav>
     </header>
-    
-    <div class="banner">
-        <h1 style="text-align:center">MK 博客</h1>
-        <p style="text-align:center">记录学习、技术、生活的点点滴滴</p>
-    </div>
     
     <div class="container">
         <div class="search-bar">
