@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第一篇博客 - MK 博客</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background: #f5f7fa;
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.8;
+        }
+        header {
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            padding: 0 40px;
+            height: 64px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo { font-size: 20px; font-weight: 600; color: #2c3e50; }
+        .logo span { color: #0070f3; }
+        nav a {
+            color: #5a6a text-decoration: none;
+            margin-left: 32px7a;
+           ;
+            font-size: 14px;
+        }
+        nav a:hover { color: #0070f3; }
+        .container { max-width: 760px; margin: 0 auto; padding: 48px 24px; }
+        .post-header { text-align: center; margin-bottom: 40px; }
+        .post-header h1 { font-size: 28px; font-weight: 400; color: #2c3e50; margin-bottom: 12px; }
+        .post-header .meta { color: #8899a6; font-size: 13px; }
+        .post-content {
+            background: #fff;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+            border: 1px solid #e1e4e8;
+        }
+        .post-content h2 { color: #2c3e50; margin: 32px 0 16px; font-size: 20px; font-weight: 500; }
+        .post-content p { margin-bottom: 16px; color: #3d4f5f; }
+        .back-link { display: inline-block; margin-top: 32px; color: #0070f3; text-decoration: none; font-size: 14px; }
+        .back-link:hover { text-decoration: underline; }
+        footer { text-align: center; padding: 32px; color: #8899a6; font-size: 13px; border-top: 1px solid #e1e4e8; background: #fff; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo"><span>▣</span> MK</div>
+        <nav>
+            <a href="../index.html">首页</a>
+            <a href="../archive.html">归档</a>
+            <a href="../about.html">关于</a>
+        </nav>
+    </header>
+    <div class="container">
+        <div class="post-header">
+            <h1>第一篇博客：Hello World</h1>
+            <div class="meta">2026-03-04 · 100 次阅读</div>
+        </div>
+        <div class="post-content">
+            <p>你好！欢迎来到我的博客 🎉</p>
+            <h2>关于这个博客</h2>
+            <p>这是一个全新的开始。从今天起，我会在这里记录我的学习心得、技术笔记和生活感悟。</p>
+            <h2>关于 OpenClaw</h2>
+            <p>OpenClaw 是一个可以部署在群晖上的 AI 助手网关，支持 Telegram、Discord、飞书、WhatsApp 等多个平台。</p>
+            <h2>未来计划</h2>
+            <p>接下来我会陆续更新群晖 Docker 安装教程、OpenClaw 进阶使用技巧、AI 相关学习笔记等内容。</p>
+            <p>感谢你的访问，让我们一起成长！</p>
+            <a href="../index.html" class="back-link">← 返回首页</a>
+        </div>
+    </div>
+    <footer><p>© 2026 MK</p></footer>
+</body>
+</html>

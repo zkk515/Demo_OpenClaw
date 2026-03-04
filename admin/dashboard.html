@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>仪表盘 - MK 博客管理</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background: #f5f7fa;
+            min-height: 100vh;
+            color: #333;
+        }
+        .header {
+            background: #fff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+            padding: 0 24px;
+            height: 56px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e1e4e8;
+        }
+        .header h1 { font-size: 18px; font-weight: 500; color: #2c3e50; }
+        .header a { color: #5a6a7a; text-decoration: none; margin-left: 24px; font-size: 13px; cursor: pointer; }
+        .header a:hover, .header a.active { color: #0070f3; }
+        
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 56px;
+            bottom: 0;
+            width: 200px;
+            background: #fff;
+            border-right: 1px solid #e1e4e8;
+            padding: 16px 0;
+        }
+        .sidebar a {
+            display: block;
+            padding: 10px 20px;
+            color: #5a6a7a;
+            text-decoration: none;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+        .sidebar a:hover, .sidebar a.active {
+            background: #f0f4f8;
+            color: #0070f3;
+            border-left: 3px solid #0070f3;
+            padding-left: 17px;
+        }
+        .sidebar a span { margin-right: 8px; }
+        
+        .main { margin-left: 200px; padding: 24px; }
+        .container { max-width: 960px; }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .stat-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid #e1e4e8;
+            text-align: center;
+        }
+        .stat-card .num { font-size: 28px; font-weight: 500; color: #0070f3; }
+        .stat-card .label { color: #8899a6; font-size: 13px; margin-top: 4px; }
+        
+        .card {
+            background: #fff;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #e1e4e8;
+        }
+        .card h2 { 
+            font-size: 15px; font-weight: 500; color: #2c3e50; margin-bottom: 16px; 
+            padding-bottom: 12px; border-bottom: 1px solid #e1e4e8; 
+        }
+        
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #eef0f2; font-size: 13px; }
+        th { color: #8899a6; font-weight: 500; }
+        td { color: #3d4f5f; }
+        .status { padding: 2px 8px; border-radius: 3px; font-size: 12px; }
+        .status.pub { background: #e6f7ed; color: #28a745; }
+        .status.draft { background: #fff3cd; color: #856404; }
+        
+        .actions button {
+            padding: 4px 10px;
+            margin-right: 4px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .btn-edit { background: #e1e4e8; color: #5a6a7a; }
+        .btn-edit:hover { background: #d0d4d9; }
+        .btn-del { background: #fce8e8; color: #dc3545; }
+        .btn-del:hover { background: #f5c6cb; }
+        .btn-view { background: #e8f0fe; color: #0070f3; }
+        
+        .btn-add {
+            background: #0070f3;
+            color: #fff;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .btn-add:hover { background: #0051d5; }
+        
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; margin-bottom: 6px; color: #5a6a7a; font-size: 13px; }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #dde1e6;
+            border-radius: 4px;
+            background: #fff;
+            color: #333;
+            font-size: 14px;
+        }
+        .form-group textarea { min-height: 180px; resize: vertical; }
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none; border-color: #0070f3;
+        }
+        
+        .btn-group { display: flex; gap: 10px; }
+        .btn-save { background: #28a745; color: #fff; padding: 8px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 13px; }
+        .btn-save:hover { background: #218838; }
+        .btn-draft { background: #6c757d; color: #fff; padding: 8px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 13px; }
+        
+        .page { display: none; }
+        .page.active { display: block; }
+        
+        .comment-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #eef0f2;
+        }
+        .comment-item:last-child { border-bottom: none; }
+        .comment-header { display: flex; justify-content: space-between; margin-bottom: 6px; }
+        .comment-author { color: #0070f3; font-weight: 500; font-size: 13px; }
+        .comment-date { color: #8899a6; font-size: 12px; }
+        .comment-content { color: #5a6a7a; font-size: 13px; }
+        
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #eef0f2;
+        }
+        .setting-item:last-child { border-bottom: none; }
+        .setting-info h4 { margin-bottom: 3px; font-size: 14px; color: #2c3e50; }
+        .setting-info p { color: #8899a6; font-size: 12px; }
+        
+        .toggle {
+            width: 44px;
+            height: 24px;
+            background: #dde1e6;
+            border-radius: 12px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .toggle.on { background: #28a745; }
+        .toggle::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: left 0.2s;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        .toggle.on::after { left: 22px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>▣ MK 博客管理</h1>
+        <div>
+            <a onclick="showPage('dashboard')" class="active">仪表盘</a>
+            <a onclick="showPage('posts')">文章</a>
+            <a onclick="showPage('comments')">评论</a>
+            <a onclick="showPage('categories')">分类</a>
+            <a onclick="showPage('media')">媒体</a>
+            <a onclick="showPage('settings')">设置</a>
+            <a href="login.html">退出</a>
+        </div>
+    </div>
+    
+    <div class="sidebar">
+        <a onclick="showPage('dashboard')" class="active"><span>📊</span> 仪表盘</a>
+        <a onclick="showPage('posts')"><span>📝</span> 文章管理</a>
+        <a onclick="showPage('comments')"><span>💬</span> 评论管理</a>
+        <a onclick="showPage('categories')"><span>📁</span> 分类管理</a>
+        Page('media')"><span>🖼<a onclick="show</span> 媒体库</a>
+        <a onclick="showPage('settings')"><span>⚙</span> 系统设置</a>
+    </div>
+    
+    <div class="main">
+        <div id="dashboard" class="page active container">
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="num">3</div>
+                    <div class="label">文章总数</div>
+                </div>
+                <div class="stat-card">
+                    <div class="num">545</div>
+                    <div class="label">总访问量</div>
+                </div>
+                <div class="stat-card">
+                    <div class="num">12</div>
+                    <div class="label">评论数</div>
+                </div>
+                <div class="stat-card">
+                    <div class="num">8</div>
+                    <div class="label">标签数</div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>📈 最近访问趋势</h2>
+                <div style="height: 160px; display: flex; align-items: flex-end; gap: 8px; padding: 16px 0;">
+                    <div style="flex:1; background: #cce0ff; height: 60%; border-radius: 3px 3px 0 0;"></div>
+                    <div style="flex:1; background: #99c2ff; height: 80%; border-radius: 3px 3px 0 0;"></div>
+                    <div style="flex:1; background: #b3d1ff; height: 45%; border-radius: 3px 3px 0 0;"></div>
+                    <div style="flex:1; background: #80b3ff; height: 90%; border-radius: 3px 3px 0 0;"></div>
+                    <div style="flex:1; background: #6699ff; height: 70%; border-radius: 3px 3px 0 0;"></div>
+                    <div style="flex:1; background: #99c2ff; height: 55%; border-radius: 3px 3px 0 0;"></div>
+                    <div style="flex:1; background: #0070f3; height: 100%; border-radius: 3px 3px 0 0;"></div>
+                </div>
+                <div style="display: flex; justify-content: space-between; color: #8899a6; font-size: 12px; padding-top: 8px;">
+                    <span>周一</span><span>周二</span><span>周三</span><span>周四</span><span>周五</span><span>周六</span><span>周日</span>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>🕐 最近评论</h2>
+                <div class="comment-item">
+                    <div class="comment-header">
+                        <span class="comment-author">访客001</span>
+                        <span class="comment-date">2026-03-04 21:30</span>
+                    </div>
+                    <div class="comment-content">博客主题很喜欢！</div>
+                </div>
+                <div class="comment-item">
+                    <div class="comment-header">
+                        <span class="comment-author">技术宅</span>
+                        <span class="comment-date">2026-03-04 18:20</span>
+                    </div>
+                    <div class="comment-content">Docker 教程很详细，谢谢分享！</div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="posts" class="page container">
+            <div class="card">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+                    <h2 style="margin:0;border:none;padding:0">📝 文章列表</h2>
+                    <button class="btn-add" onclick="showPage('post-edit')">+ 新建文章</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>标题</th>
+                            <th>作者</th>
+                            <th>分类</th>
+                            <th>日期</th>
+                            <th>阅读</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>第一篇博客：Hello World</td>
+                            <td>Admin</td>
+                            <td>技术</td>
+                            <td>2026-03-04</td>
+                            <td>100</td>
+                            <td><span class="status pub">已发布</span></td>
+                            <td class="actions">
+                                <button class="btn-edit">编辑</button>
+                                <button class="btn-view">查看</button>
+                                <button class="btn-del">删除</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>群晖 Docker 安装指南</td>
+                            <td>Admin</td>
+                            <td>教程</td>
+                            <td>2026-03-03</td>
+                            <td>256</td>
+                            <td><span class="status pub">已发布</span></td>
+                            <td class="actions">
+                                <button class="btn-edit">编辑</button>
+                                <button class="btn-view">查看</button>
+                                <button class="btn-del">删除</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>AI 时代的学习思考</td>
+                            <td>Admin</td>
+                            <td>思考</td>
+                            <td>2026-03-01</td>
+                            <td>189</td>
+                            <td><span class="status pub">已发布</span></td>
+                            <td class="actions">
+                                <button class="btn-edit">编辑</button>
+                                <button class="btn-view">查看</button>
+                                <button class="btn-del">删除</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div id="post-edit" class="page container">
+            <div class="card">
+                <h2>✏️ 编写文章</h2>
+                <div class="form-group">
+                    <label>标题</label>
+                    <input type="text" placeholder="输入文章标题...">
+                </div>
+                <div class="form-group">
+                    <label>分类</label>
+                    <select>
+                        <option>技术</option>
+                        <option>教程</option>
+                        <option>生活</option>
+                        <option>思考</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>标签 (逗号分隔)</label>
+                    <input type="text" placeholder="OpenClaw, Docker, 教程">
+                </div>
+                <div class="form-group">
+                    <label>摘要</label>
+                    <textarea placeholder="文章摘要..." style="min-height: 60px;"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>内容 (Markdown)</label>
+                    <textarea placeholder="开始写文章..."></textarea>
+                </div>
+                <div class="btn-group">
+                    <button class="btn-save" onclick="alert('发布成功！'); showPage('posts')">发布文章</button>
+                    <button class="btn-draft" onclick="alert('已保存为草稿')">保存草稿</button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="comments" class="page container">
+            <div class="card">
+                <h2>💬 所有评论</h2>
+                <div class="comment-item">
+                    <div class="comment-header">
+                        <span class="comment-author">访客001</span>
+                        <span class="comment-date">2026-03-04 21:30</span>
+                    </div>
+                    <div class="comment-content">博客主题很喜欢！</div>
+                </div>
+                <div class="comment-item">
+                    <div class="comment-header">
+                        <span class="comment-author">技术宅</span>
+                        <span class="comment-date">2026-03-04 18:20</span>
+                    </div>
+                    <div class="comment-content">Docker 教程很详细，谢谢分享！</div>
+                </div>
+                <div class="comment-item">
+                    <div class="comment-header">
+                        <span class="comment-author">小明</span>
+                        <span class="comment-date">2026-03-03 15:45</span>
+                    </div>
+                    <div class="comment-content">期待更多 AI 相关的文章！</div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="categories" class="page container">
+            <div class="card">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+                    <h2 style="margin:0;border:none;padding:0">📁 分类列表</h2>
+                    <button class="btn-add">+ 添加分类</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>名称</th>
+                            <th>别名</th>
+                            <th>文章数</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>技术</td><td>tech</td><td>5</td><td class="actions"><button class="btn-edit">编辑</button><button class="btn-del">删除</button></td></tr>
+                        <tr><td>教程</td><td>tutorial</td><td>3</td><td class="actions"><button class="btn-edit">编辑</button><button class="btn-del">删除</button></td></tr>
+                        <tr><td>生活</td><td>life</td><td>2</td><td class="actions"><button class="btn-edit">编辑</button><button class="btn-del">删除</button></td></tr>
+                        <tr><td>思考</td><td>thoughts</td><td>1</td><td class="actions"><button class="btn-edit">编辑</button><button class="btn-del">删除</button></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div id="media" class="page container">
+            <div class="card">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+                    <h2 style="margin:0;border:none;padding:0">🖼 媒体库</h2>
+                    <button class="btn-add">+ 上传文件</button>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;">
+                    <div style="background: #f5f7fa; border-radius: 4px; padding: 8px; text-align: center;">
+                        <div style="height: 60px; background: #e8f0fe; border-radius: 3px; margin-bottom: 6px; display: flex; align-items: center; justify-content: center; color: #0070f3;">🖼</div>
+                        <div style="font-size: 11px; color: #8899a6;">cover1.jpg</div>
+                    </div>
+                    <div style="background: #f5f7fa; border-radius: 4px; padding: 8px; text-align: center;">
+                        <div style="height: 60px; background: #e8f0fe; border-radius: 3px; margin-bottom: 6px; display: flex; align-items: center; justify-content: center; color: #0070f3;">🖼</div>
+                        <div style="font-size: 11px; color: #8899a6;">docker.png</div>
+                    </div>
+                    <div style="background: #f5f7fa; border-radius: 4px; padding: 8px; text-align: center;">
+                        <div style="height: 60px; background: #e8f0fe; border-radius: 3px; margin-bottom: 6px; display: flex; align-items: center; justify-content: center; color: #0070f3;">🖼</div>
+                        <div style="font-size: 11px; color: #8899a6;">avatar.png</div>
+                    </div>
+                    <div style="background: #f5f7fa; border-radius: 4px; padding: 8px; text-align: center;">
+                        <div style="height: 60px; background: #f5f7fa; border-radius: 3px; margin-bottom: 6px; display: flex; align-items: center; justify-content: center; color: #8899a6;">📄</div>
+                        <div style="font-size: 11px; color: #8899a6;">doc.pdf</div>
+                    </div>
+                    <div style="background: #f5f7fa; border-radius: 4px; padding: 8px; text-align: center; border: 1px dashed #dde1e6;">
+                        <div style="height: 60px; display: flex; align-items: center; justify-content: center; color: #8899a6;">+</div>
+                        <div style="font-size: 11px; color: #8899a6;">上传</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="settings" class="page container">
+            <div class="card">
+                <h2>⚙ 基本设置</h2>
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h4>博客名称</h4>
+                        <p>显示在网站标题</p>
+                    </div>
+                    <input type="text" value="MK 博客" style="width: 180px;">
+                </div>
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h4>每页文章数</h4>
+                        <p>列表页显示的文章数量</p>
+                    </div>
+                    <input type="number" value="10" style="width: 70px;">
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>🔧 评论设置</h2>
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h4>开启评论</h4>
+                        <p>允许访客评论</p>
+                    </div>
+                    <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+                </div>
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h4>评论审核</h4>
+                        <p>新评论需要审核</p>
+                    </div>
+                    <div class="toggle" onclick="this.classList.toggle('on')"></div>
+                </div>
+            </div>
+            
+            <div style="text-align: right;">
+                <button class="btn-save" onclick="alert('设置已保存！')">保存设置</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
+            event.target.closest('a')?.classList.add('active');
+        }
+        
+        if(!localStorage.getItem('blog_admin')) {
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>

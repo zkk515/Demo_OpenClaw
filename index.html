@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MK 博客</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background: #f5f7fa;
+            min-height: 100vh;
+            color: #333;
+        }
+        header {
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            padding: 0 40px;
+            height: 64px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo { font-size: 20px; font-weight: 600; color: #2c3e50; }
+        .logo span { color: #0070f3; }
+        nav a {
+            color: #5a6a7a;
+            text-decoration: none;
+            margin-left: 32px;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+        nav a:hover { color: #0070f3; }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 48px 24px;
+        }
+        .hero {
+            text-align: center;
+            padding: 60px 0 40px;
+        }
+        .hero h1 {
+            font-size: 36px;
+            font-weight: 300;
+            color: #2c3e50;
+            margin-bottom: 16px;
+            letter-spacing: 2px;
+        }
+        .hero p {
+            font-size: 16px;
+            color: #8899a6;
+            margin-bottom: 32px;
+        }
+        .btn {
+            display: inline-block;
+            background: #0070f3;
+            color: #fff;
+            padding: 10px 28px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+        .btn:hover { background: #0051d5; }
+        .posts { margin-top: 48px; }
+        .posts h2 {
+            font-size: 18px;
+            font-weight: 500;
+            color: #2c3e50;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e1e4e8;
+        }
+        .post-card {
+            background: #fff;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            border: 1px solid #e1e4e8;
+        }
+        .post-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .post-card h3 {
+            font-size: 18px;
+            font-weight: 500;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+        .post-card .meta {
+            color: #8899a6;
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+        .post-card .excerpt {
+            color: #5a6a7a;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+        .tags { margin-top: 12px; }
+        .tag {
+            display: inline-block;
+            background: #f0f4f8;
+            color: #5a6a7a;
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-right: 6px;
+        }
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: #8899a6;
+            font-size: 13px;
+            border-top: 1px solid #e1e4e8;
+            background: #fff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo"><span>▣</span> MK</div>
+        <nav>
+            <a href="index.html">首页</a>
+            <a href="archive.html">归档</a>
+            <a href="about.html">关于</a>
+        </nav>
+    </header>
+    
+    <div class="container">
+        <div class="hero">
+            <h1>MK 博客</h1>
+            <p>记录学习、技术、生活的点点滴滴</p>
+            <a href="post/hello-world.html" class="btn">开始阅读 →</a>
+        </div>
+        
+        <div class="posts">
+            <h2>最新文章</h2>
+            
+            <a href="post/hello-world.html" style="text-decoration:none;color:inherit">
+                <div class="post-card">
+                    <h3>第一篇博客：Hello World</h3>
+                    <div class="meta">2026-03-04 · 100 次阅读</div>
+                    <div class="excerpt">这是我的第一篇博客文章。OpenClaw 是一个可以部署在群晖上的 AI 助手网关，支持 Telegram、Discord、飞书等多个平台...</div>
+                    <div class="tags">
+                        <span class="tag">OpenClaw</span>
+                        <span class="tag">入门</span>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="post/docker-guide.html" style="text-decoration:none;color:inherit">
+                <div class="post-card">
+                    <h3>群晖 Docker 安装指南</h3>
+                    <div class="meta">2026-03-03 · 256 次阅读</div>
+                    <div class="excerpt">群晖 NAS 是很多家庭用户的私有云解决方案。通过 Docker，我们可以轻松部署各种服务，包括 OpenClaw...</div>
+                    <div class="tags">
+                        <span class="tag">群晖</span>
+                        <span class="tag">Docker</span>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="post/ai-thinking.html" style="text-decoration:none;color:inherit">
+                <div class="post-card">
+                    <h3>AI 时代的学习思考</h3>
+                    <div class="meta">2026-03-01 · 189 次阅读</div>
+                    <div class="excerpt">在 AI 时代，我们应该如何学习？与其焦虑被 AI 取代，不如学会使用 AI 成为我们的助手...</div>
+                    <div class="tags">
+                        <span class="tag">AI</span>
+                        <span class="tag">思考</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2026 MK · 用心记录每一天</p>
+    </footer>
+</body>
+</html>

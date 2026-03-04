@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>归档 - MK 博客</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background: #f5f7fa;
+            min-height: 100vh;
+            color: #333;
+        }
+        header {
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            padding: 0 40px;
+            height: 64px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo { font-size: 20px; font-weight: 600; color: #2c3e50; }
+        .logo span { color: #0070f3; }
+        nav a { color: #5a6a7a; text-decoration: none; margin-left: 32px; font-size: 14px; }
+        nav a:hover { color: #0070f3; }
+        .container { max-width: 800px; margin: 0 auto; padding: 48px 24px; }
+        h1 { font-size: 24px; font-weight: 400; color: #2c3e50; margin-bottom: 32px; padding-bottom: 16px; border-bottom: 1px solid #e1e4e8; }
+        .month { margin-bottom: 32px; }
+        .month h2 { color: #2c3e50; font-size: 16px; margin-bottom: 16px; }
+        .post-list { list-style: none; background: #fff; border-radius: 8px; border: 1px solid #e1e4e8; }
+        .post-list li { padding: 16px 20px; border-bottom: 1px solid #e1e4e8; }
+        .post-list li:last-child { border-bottom: none; }
+        .post-list a { color: #3d4f5f; text-decoration: none; font-size: 14px; }
+        .post-list a:hover { color: #0070f3; }
+        .post-list .date { color: #8899a6; margin-right: 16px; font-size: 13px; }
+        footer { text-align: center; padding: 32px; color: #8899a6; font-size: 13px; border-top: 1px solid #e1e4e8; background: #fff; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo"><span>▣</span> MK</div>
+        <nav>
+            <a href="index.html">首页</a>
+            <a href="archive.html">归档</a>
+            <a href="about.html">关于</a>
+        </nav>
+    </header>
+    <div class="container">
+        <h1>文章归档</h1>
+        <div class="month">
+            <h2>2026年3月</h2>
+            <ul class="post-list">
+                <li><span class="date">03-04</span><a href="post/hello-world.html">第一篇博客：Hello World</a></li>
+                <li><span class="date">03-03</span><a href="post/docker-guide.html">群晖 Docker 安装指南</a></li>
+                <li><span class="date">03-01</span><a href="post/ai-thinking.html">AI 时代的学习思考</a></li>
+            </ul>
+        </div>
+    </div>
+    <footer><p>© 2026 MK</p></footer>
+</body>
+</html>
